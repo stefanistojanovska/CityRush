@@ -1,0 +1,10 @@
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\bin\Debug\CityRush2.0.exe.config
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\bin\Debug\CityRush2.0.exe
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\bin\Debug\CityRush2.0.pdb
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2.0.csprojAssemblyReference.cache
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2._0.Properties.Resources.resources
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2.0.csproj.GenerateResource.cache
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2.0.csproj.CoreCompileInputs.cache
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2.0.exe
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2.0.pdb
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2._0.CityRush.resources
