@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Car.cs" />
+    <Compile Include="CarDrawing.cs" />
     <Compile Include="CityRush.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,7 +56,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scene.cs" />
     <EmbeddedResource Include="CityRush.resx">
       <DependentUpon>CityRush.cs</DependentUpon>
     </EmbeddedResource>

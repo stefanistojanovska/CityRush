@@ -1,34 +1,43 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Timer = System.Windows.Forms.Timer;
 
 namespace CityRush2._0
 {
     public partial class CityRush : Form
     {
-        private Scene scene;
+
         private Boolean gameStarted;
+        CarDrawing drCar1;
+        CarDrawing drCar2;
+        CarDrawing drCar3;
         int speed = 3;
         public CityRush()
         {
-           
+            Image main = Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\main-resized-removebg-preview.png");
+            Image image1 = Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\yellow-resized-removebg-preview.png");
+            Image image2 = Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\green-resized-removebg-preview.png");
+            Image image3 = Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\blue-resized-removebg-preview.png");
+
+            //drMain = new CarDrawing(main,159,320);
+            drCar1= new CarDrawing(image1, 217, 26);
+            drCar2 = new CarDrawing(image2, 495, 26);
+            drCar3 = new CarDrawing(image3, 495, 309);
+
             gameStarted = false;
-            scene = new Scene();
-            DoubleBuffered = true;
-           // mainCar.TopMost = true;
+          
+          
+           
             InitializeComponent();
-            //
-            //mainCar.Controls.Add(car1);mainCar.BackColor = Color.Transparent;
-            //pnlGame.Parent = car1;
+            typeof(Panel).InvokeMember("DoubleBuffered",
+     BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+     null, pnlGame, new object[] { true });
+            // mainCar.Visible = false;
+         
+            
+       
         }
 
         private void button1_Click(object sender, EventArgs e)//btnStart
@@ -40,10 +49,6 @@ namespace CityRush2._0
             
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void button2_Click(object sender, EventArgs e)//btnExit
         {
@@ -55,16 +60,17 @@ namespace CityRush2._0
            
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
+     
 
         private void pnlGame_Paint(object sender, PaintEventArgs e)
         {
             var graphics = e.Graphics;
-            //Image main = Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\main-resized-removebg-preview.png");
-            //graphics.DrawImage(main, new Point());
+          
+            drCar1.drawCar(graphics);
+            drCar2.drawCar(graphics);
+            drCar3.drawCar(graphics);
+            //drMain.drawCar(graphics);
+
             Point[] points = new Point[4];
             points[0] = new Point(0, 0);
             points[1] = new Point(120, 0);
@@ -82,6 +88,8 @@ namespace CityRush2._0
             graphics.DrawLine(pen, 783, -1, 859, 491);
             brush.Dispose();
             pen.Dispose();
+          
+         
         }
 
         private void pnlGame_MouseClick(object sender, MouseEventArgs e)
@@ -92,7 +100,11 @@ namespace CityRush2._0
         private void timer1_Tick(object sender, EventArgs e)
         {
             moveLine(speed);
-            moveCar(2);
+            
+            moveCar(speed);
+           Invalidate(true);
+            
+           
         }
         void moveLine(int speed)
         {
@@ -120,13 +132,16 @@ namespace CityRush2._0
 
             else
                 pictureBox6.Top += speed;
+            
         }
+
         Random r = new Random();
         int x, y;
         void moveCar(int speed)
         {
-
-            if (car1.Top >= 590)
+            //YELLOW CAR
+          
+            if (drCar1.getTop() >= 590)
             {
                 y = -1;
                 int tmp = r.Next(0, 1000);
@@ -135,51 +150,63 @@ namespace CityRush2._0
                     x = 217;
                 }
                 else x = 495;
-                car1.Location = new Point(x, y);
+                drCar1.setLocation(x, y);
+
             }
             else
-            {
-                car1.Top += speed;
-                
+                drCar1.moveDown(speed);
 
-            }
-                
+            //GREEN CAR
 
-            if (car2.Top >= 560)
+            if (drCar2.getTop() >= 590)
             {
                 y = -1;
                 int tmp = r.Next(0, 1000);
-                if (tmp <500)//left
+                if (tmp < 500)//left
                 {
                     x = 217;
                 }
                 else x = 495;
-                car2.Location = new Point(x, y);
+            
+                drCar2.setLocation(x, y);
+
             }
             else
-                car2.Top += speed;
+               
+                drCar2.moveDown(speed);
 
-            if (car3.Top >= 575)
+
+
+            //BLUE CAR
+            if (drCar3.getTop() >= 590)
             {
                 y = -1;
                 int tmp = r.Next(0, 1000);
-                if (tmp >500)//left
+                if (tmp < 500)//left
                 {
                     x = 217;
                 }
                 else x = 495;
-                car3.Location = new Point(x, y);
+              
+                drCar3.setLocation(x, y);
+
             }
             else
-                car3.Top += speed;
+              
+                drCar3.moveDown(speed);
+
+
+
+
+
+
         }
 
-       
 
-        private void car3_Click(object sender, EventArgs e)
-        {
 
-        }
+
+
+
 
         private async void CityRush_KeyDown(object sender, KeyEventArgs e)
         {
@@ -190,6 +217,9 @@ namespace CityRush2._0
                 if(e.KeyCode==Keys.Left && mainCar.Left==516)
                 {
                     mainCar.Left -= 320;
+                  
+                    
+                    
                 }
                 if (e.KeyCode == Keys.Right && mainCar.Left == 196)
                 {
@@ -210,6 +240,8 @@ namespace CityRush2._0
                     await Task.Delay(300);
                     mainCar.Top+= 200;
                 }
+             
+              
             }
         }
     }
