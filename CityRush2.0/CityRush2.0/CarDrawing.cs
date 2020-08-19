@@ -13,11 +13,12 @@ namespace CityRush2._0
     {
         Image image;
         Rectangle rect;
+      
        
         public CarDrawing(Image image,int x, int y)
         {
             this.image = image;
-            rect = new Rectangle(x, y, 180, 120);
+            rect = new Rectangle(x, y, 180, 110);
             
         }
 
@@ -35,6 +36,10 @@ namespace CityRush2._0
         public void moveDown(int speed)
         {
             rect.Y += speed;
+            //if (this.rect.X < 450)
+             //   rect.X -= 1;
+          //  if(rect.X>450)
+               // rect.X += 1;
         
 
         }
