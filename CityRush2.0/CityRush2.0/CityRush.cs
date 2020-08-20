@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace CityRush2._0
 {
     public partial class CityRush : Form
@@ -14,17 +15,23 @@ namespace CityRush2._0
         CarDrawing drCar1;
         CarDrawing drCar2;
         CarDrawing drCar3;
+        Boolean gamePaused;
+        Boolean gameOver;
+        Boolean jumped = false;
   
-        int speed = 3;
+        int speed = 5;
         int level = 1;
         int minutes = 2;
         int seconds = 30;
         static int score;
         public CityRush()
         {
-            Image image1 = Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\yellow-resized-removebg-preview.png");
-            Image image2 = Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\green-resized-removebg-preview.png");
-            Image image3 = Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\blue-resized-removebg-preview.png");
+            Image image1 = Resources.Yellow;
+            //Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\yellow-resized-removebg-preview.png");
+            Image image2 = Resources.Green;
+            //Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\green-resized-removebg-preview.png");
+            Image image3 = Resources.Blue;
+                //mage.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\blue-resized-removebg-preview.png");
 
          
             drCar1= new CarDrawing(image1, 217, 26);
@@ -32,6 +39,8 @@ namespace CityRush2._0
             drCar3 = new CarDrawing(image3, 525, 309);
             score = 0;
             gameStarted = false;
+            gamePaused = false;
+            gameOver = false;
 
            
            
@@ -43,6 +52,8 @@ namespace CityRush2._0
             lblLvl.Parent = this;
             lblTimer.Parent = this;
             lblLbl.Parent = this;
+            mainCar.Image = Resources.Main;
+            
             //lblTimer.Text = "jfvv";
        
         }
@@ -60,7 +71,7 @@ namespace CityRush2._0
             timer1.Enabled = true;
             countdownTimer.Enabled = true;
       
-            
+             
             
         }
       
@@ -86,7 +97,7 @@ namespace CityRush2._0
             drCar1.drawCar(graphics);
             drCar2.drawCar(graphics);
             drCar3.drawCar(graphics);
-            //drMain.drawCar(graphics);
+    
 
             Point[] points = new Point[4];
             points[0] = new Point(0, 0);
@@ -123,6 +134,15 @@ namespace CityRush2._0
             moveCar(speed);
             moveLine(speed);
             score += speed;
+            if (!jumped && (carIntersects(drCar1) || carIntersects(drCar2) || carIntersects(drCar3)))
+            {
+                gameOver = true;
+                lblStatus.Text = "GAME OVER";
+                timer1.Enabled = false;
+                countdownTimer.Enabled = false;
+            }
+                
+            //
             Invalidate(true);
             
            
@@ -181,9 +201,7 @@ namespace CityRush2._0
                 {
                     y = 300;
                     label4.Text = "300";
-                }*/
-
-                   
+                }*/  
                
                 drCar1.setLocation(x, y);
 
@@ -252,7 +270,8 @@ namespace CityRush2._0
                 {
                     
                     lblTimer.Text = "0:00";
-                    lblTimesUp.Visible = true;
+        
+                    lblStatus.Text = "Time's up!";
                     countdownTimer.Stop();
                     timer1.Stop();
                 }
@@ -276,36 +295,90 @@ namespace CityRush2._0
             if(gameStarted)
 
             {
-                
-                if(e.KeyCode==Keys.Left && mainCar.Left==522)
+
+                if(e.KeyCode==Keys.Escape && !gameOver)
+                {
+                    if(!gamePaused)
+                    {
+                        timer1.Stop();
+                        countdownTimer.Stop();
+                        gamePaused = true; 
+                        lblStatus.Visible = true;
+                        lblStatus.Text = " PAUSED";
+                        label4.Text = "pause!!!!";
+                    }
+                    else
+                    {
+                      timer1.Start();
+                        countdownTimer.Start();
+                        gamePaused = false;
+                        lblStatus.Text = "";
+                        label4.Text = "unpause";
+                    }
+                   
+                }
+           
+                if(e.KeyCode==Keys.Left && mainCar.Left==522 && !gamePaused && !gameOver)
                 {
                     mainCar.Left -= 320;
                   
                     
                     
                 }
-                if (e.KeyCode == Keys.Right && mainCar.Left == 202)
+                if (e.KeyCode == Keys.Right && mainCar.Left == 202 && !gamePaused && !gameOver)
                 {
                     mainCar.Left += 320;
                 }
-                if (e.KeyCode == Keys.Up && speed<20)
+                if (e.KeyCode == Keys.Up && speed<25)
                 {
                     speed++;
+                    label4.Text = speed + "";
                 }
-                if (e.KeyCode == Keys.Down && speed>2)
+                if (e.KeyCode == Keys.Down && speed>5)
                 {
                     speed--;
                 }
-                if (e.KeyCode == Keys.Space && mainCar.Top==477)
+                if (e.KeyCode == Keys.Space && mainCar.Top== 477 )
                 {
-                   
-                    mainCar.Top -=  180;
-                    await Task.Delay(600);
-                    mainCar.Top+= 180;
+                    //space unpause disabled
+                    if(gamePaused || gameOver)
+                        e.SuppressKeyPress = true;
+                    else
+                    {
+                        mainCar.Top -=  180;
+                        jumped = true;
+                       await Task.Delay(10000/(speed*2));
+                        mainCar.Top+= 180;
+                        jumped = false;
+                    }
+                  
                 }
+               
              
               
             }
+        }
+
+        private Boolean carIntersects(CarDrawing car)
+        {
+            if (mainCar.Top < car.getBottom() - 35 && sameLane(car) ) 
+                return true;
+            return false ;
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            
+        }
+
+        private Boolean sameLane(CarDrawing car)
+        {
+            if (mainCar.Left < 450 && car.getLane().Equals("Left"))
+                return true;
+            if (mainCar.Left > 450 && car.getLane().Equals("Right"))
+                return true;
+            return false;
+
         }
     }
 }

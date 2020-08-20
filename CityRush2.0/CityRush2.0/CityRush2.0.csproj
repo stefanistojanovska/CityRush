@@ -55,6 +55,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CityRush.resx">
       <DependentUpon>CityRush.cs</DependentUpon>
     </EmbeddedResource>
@@ -67,6 +72,10 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -79,6 +88,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yellow.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cars\yellow-resized-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cars\green-resized-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cars\blue-resized-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cars\main-resized-removebg-preview.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

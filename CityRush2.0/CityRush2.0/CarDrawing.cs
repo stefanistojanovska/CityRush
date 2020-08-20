@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CityRush2._0
 {
@@ -22,6 +23,16 @@ namespace CityRush2._0
             
         }
 
+        public int getBottom()
+        {
+            return rect.Bottom;
+        }
+
+        public String getLane()
+        {
+            if (rect.X < 450) return "Left";
+            return "Right";
+        }
         public int getTop()
         {
             return rect.Top;

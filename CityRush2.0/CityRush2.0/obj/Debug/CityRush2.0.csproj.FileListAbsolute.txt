@@ -8,3 +8,4 @@ C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\City
 C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2.0.exe
 C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2.0.pdb
 C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2._0.CityRush.resources
+C:\Users\Stefani Stojanovska\source\repos\CityRush2.0\CityRush2.0\obj\Debug\CityRush2._0.Resources.resources

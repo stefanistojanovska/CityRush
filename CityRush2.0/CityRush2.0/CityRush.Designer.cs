@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CityRush));
             this.label2 = new System.Windows.Forms.Label();
             this.pnlGame = new System.Windows.Forms.Panel();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.pictureBox7 = new System.Windows.Forms.PictureBox();
             this.mainCar = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -46,11 +47,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.lblScore = new System.Windows.Forms.Label();
             this.pnlMain = new System.Windows.Forms.Panel();
+            this.lblLbl = new System.Windows.Forms.Label();
             this.lblTimer = new System.Windows.Forms.Label();
             this.lblLvl = new System.Windows.Forms.Label();
             this.countdownTimer = new System.Windows.Forms.Timer(this.components);
-            this.lblTimesUp = new System.Windows.Forms.Label();
-            this.lblLbl = new System.Windows.Forms.Label();
             this.pnlGame.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainCar)).BeginInit();
@@ -76,7 +76,7 @@
             // pnlGame
             // 
             this.pnlGame.BackColor = System.Drawing.Color.Gray;
-            this.pnlGame.Controls.Add(this.lblTimesUp);
+            this.pnlGame.Controls.Add(this.lblStatus);
             this.pnlGame.Controls.Add(this.pictureBox7);
             this.pnlGame.Controls.Add(this.mainCar);
             this.pnlGame.Controls.Add(this.pictureBox2);
@@ -92,6 +92,17 @@
             this.pnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlGame_Paint);
             this.pnlGame.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlGame_MouseClick);
             // 
+            // lblStatus
+            // 
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lblStatus.Font = new System.Drawing.Font("Ink Free", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStatus.ForeColor = System.Drawing.Color.Red;
+            this.lblStatus.Location = new System.Drawing.Point(367, 202);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(0, 43);
+            this.lblStatus.TabIndex = 14;
+            // 
             // pictureBox7
             // 
             this.pictureBox7.BackColor = System.Drawing.Color.LightYellow;
@@ -106,7 +117,6 @@
             this.mainCar.BackColor = System.Drawing.Color.Transparent;
             this.mainCar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.mainCar.ErrorImage = null;
-            this.mainCar.Image = ((System.Drawing.Image)(resources.GetObject("mainCar.Image")));
             this.mainCar.ImageLocation = "";
             this.mainCar.InitialImage = null;
             this.mainCar.Location = new System.Drawing.Point(202, 477);
@@ -245,6 +255,17 @@
             this.pnlMain.Size = new System.Drawing.Size(909, 492);
             this.pnlMain.TabIndex = 5;
             // 
+            // lblLbl
+            // 
+            this.lblLbl.AutoSize = true;
+            this.lblLbl.Font = new System.Drawing.Font("Gabriola", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLbl.Location = new System.Drawing.Point(754, -2);
+            this.lblLbl.Name = "lblLbl";
+            this.lblLbl.Size = new System.Drawing.Size(78, 54);
+            this.lblLbl.TabIndex = 7;
+            this.lblLbl.Text = "Time:";
+            this.lblLbl.Visible = false;
+            // 
             // lblTimer
             // 
             this.lblTimer.AutoSize = true;
@@ -268,29 +289,6 @@
             // countdownTimer
             // 
             this.countdownTimer.Tick += new System.EventHandler(this.countdownTimer_Tick);
-            // 
-            // lblTimesUp
-            // 
-            this.lblTimesUp.AutoSize = true;
-            this.lblTimesUp.Font = new System.Drawing.Font("Ink Free", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTimesUp.ForeColor = System.Drawing.Color.Red;
-            this.lblTimesUp.Location = new System.Drawing.Point(367, 202);
-            this.lblTimesUp.Name = "lblTimesUp";
-            this.lblTimesUp.Size = new System.Drawing.Size(179, 43);
-            this.lblTimesUp.TabIndex = 14;
-            this.lblTimesUp.Text = "Time\'s up!";
-            this.lblTimesUp.Visible = false;
-            // 
-            // lblLbl
-            // 
-            this.lblLbl.AutoSize = true;
-            this.lblLbl.Font = new System.Drawing.Font("Gabriola", 21.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLbl.Location = new System.Drawing.Point(754, -2);
-            this.lblLbl.Name = "lblLbl";
-            this.lblLbl.Size = new System.Drawing.Size(78, 54);
-            this.lblLbl.TabIndex = 7;
-            this.lblLbl.Text = "Time:";
-            this.lblLbl.Visible = false;
             // 
             // CityRush
             // 
@@ -347,7 +345,7 @@
         private System.Windows.Forms.Label lblLvl;
         private System.Windows.Forms.Label lblTimer;
         private System.Windows.Forms.Timer countdownTimer;
-        private System.Windows.Forms.Label lblTimesUp;
+        private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblLbl;
     }
 }
