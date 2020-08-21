@@ -1,10 +1,11 @@
-﻿using Microsoft.Win32;
+﻿
 using System;
+
 using System.Drawing;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using WMPLib;
 
 namespace CityRush2._0
 {
@@ -18,33 +19,42 @@ namespace CityRush2._0
         Boolean gamePaused;
         Boolean gameOver;
         Boolean jumped = false;
-  
-        int speed = 5;
-        int level = 1;
-        int minutes = 2;
-        int seconds = 30;
+       
+
+        int speed;
+        int level;
+        int minutes;
+        int seconds;
         static int score;
         public CityRush()
         {
-            Image image1 = Resources.Yellow;
-            //Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\yellow-resized-removebg-preview.png");
-            Image image2 = Resources.Green;
-            //Image.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\green-resized-removebg-preview.png");
-            Image image3 = Resources.Blue;
-                //mage.FromFile("C:\\Users\\Stefani Stojanovska\\source\\repos\\CityRush2.0\\CityRush2.0\\cars\\blue-resized-removebg-preview.png");
 
-         
-            drCar1= new CarDrawing(image1, 217, 26);
+
+            Image image1 = Resources.Yellow;
+            Image image2 = Resources.Green;
+            Image image3 = Resources.Blue;
+
+            drCar1 = new CarDrawing(image1, 217, 26);
             drCar2 = new CarDrawing(image2, 525, 26);
             drCar3 = new CarDrawing(image3, 525, 309);
-            score = 0;
+
             gameStarted = false;
             gamePaused = false;
             gameOver = false;
 
-           
-           
+            score = 0;
+            speed = 8;
+            level = 1;
+            minutes = 2;
+            seconds = 30;
+
             InitializeComponent();
+
+            lblStatus.Visible = false;
+            newGame.Visible = false;
+
+
+
             typeof(Panel).InvokeMember("DoubleBuffered",
             BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
             null, pnlGame, new object[] { true });
@@ -53,26 +63,15 @@ namespace CityRush2._0
             lblTimer.Parent = this;
             lblLbl.Parent = this;
             mainCar.Image = Resources.Main;
+            newGame.Visible = false;
             
-            //lblTimer.Text = "jfvv";
        
         }
 
         private void button1_Click(object sender, EventArgs e)//btnStart
         {
-            gameStarted = true;
-            pnlMain.Visible = false;
-        
-            //pnlContainer.Visible = true;    
-            pnlGame.Visible = true;
-            countdownTimer.Interval = 1000;
-            lblTimer.Visible = true;
-            lblLbl.Visible = true;
-            timer1.Enabled = true;
-            countdownTimer.Enabled = true;
-      
-             
-            
+            startGame();
+                    
         }
       
        
@@ -120,14 +119,11 @@ namespace CityRush2._0
          
         }
 
-        private void pnlGame_MouseClick(object sender, MouseEventArgs e)
-        {
-            label4.Text = "X:" + e.X + "         Y:" + e.Y;
-        }
+  
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (score > (level)*12000) level++;
+            if (score > (level)*6000) level++;
            
             lblScore.Text = "Score: " +score;
             lblLvl.Text = "Level " + level;
@@ -141,7 +137,14 @@ namespace CityRush2._0
                 timer1.Enabled = false;
                 countdownTimer.Enabled = false;
             }
-                
+            if (gameOver)
+            {
+                newGame.Visible = true;
+                lblStatus.Visible = true;
+                crush();
+               
+            }
+               
             //
             Invalidate(true);
             
@@ -197,11 +200,7 @@ namespace CityRush2._0
 
                 //OVERLAPPING CARS
                 //NEMA OVERLAPPING PORADI RASPOREDOT!!
-               /* if (drCar3.getTop() < 10 || drCar2.getTop() < 10)
-                {
-                    y = 300;
-                    label4.Text = "300";
-                }*/  
+            
                
                 drCar1.setLocation(x, y);
 
@@ -296,25 +295,35 @@ namespace CityRush2._0
 
             {
 
-                if(e.KeyCode==Keys.Escape && !gameOver)
+                if(e.KeyCode==Keys.Escape )
                 {
-                    if(!gamePaused)
+                    if(!gameOver)
                     {
-                        timer1.Stop();
-                        countdownTimer.Stop();
-                        gamePaused = true; 
-                        lblStatus.Visible = true;
-                        lblStatus.Text = " PAUSED";
-                        label4.Text = "pause!!!!";
+                        if(!gamePaused)
+                        {
+                            timer1.Stop();
+                            countdownTimer.Stop();
+                            gamePaused = true; 
+                            lblStatus.Visible = true;
+                            lblStatus.Text = "    PAUSED";
+                            //label4.Text = "pause!!!!";
+                        }
+                        else
+                        {
+                            timer1.Start();
+                            countdownTimer.Start();
+                            gamePaused = false;
+                            lblStatus.Text = "";
+                            //label4.Text = "unpause";
+                        }
                     }
                     else
                     {
-                      timer1.Start();
-                        countdownTimer.Start();
-                        gamePaused = false;
-                        lblStatus.Text = "";
-                        label4.Text = "unpause";
+                        CityRush newForm = new CityRush();
+                        newForm.Visible = true;
+                        this.Dispose(false);
                     }
+                    
                    
                 }
            
@@ -332,9 +341,9 @@ namespace CityRush2._0
                 if (e.KeyCode == Keys.Up && speed<25)
                 {
                     speed++;
-                    label4.Text = speed + "";
+                
                 }
-                if (e.KeyCode == Keys.Down && speed>5)
+                if (e.KeyCode == Keys.Down && speed>8)
                 {
                     speed--;
                 }
@@ -345,10 +354,21 @@ namespace CityRush2._0
                         e.SuppressKeyPress = true;
                     else
                     {
-                        mainCar.Top -=  180;
+                       
                         jumped = true;
-                       await Task.Delay(10000/(speed*2));
-                        mainCar.Top+= 180;
+                       
+                        for (int i = 0; i < 50; i++)
+                        {
+                           await Task.Delay(8000/(speed*100));//ne e najoptimalna formula
+                            mainCar.Top -=1;
+                        }
+                            
+                        for (int i = 0; i < 50; i++)
+                        {
+                            await Task.Delay(8000/(speed*100));
+                            mainCar.Top += 1;
+                        }
+                            
                         jumped = false;
                     }
                   
@@ -361,14 +381,25 @@ namespace CityRush2._0
 
         private Boolean carIntersects(CarDrawing car)
         {
-            if (mainCar.Top < car.getBottom() - 35 && sameLane(car) ) 
+            if ((mainCar.Bottom >= car.getTop() && mainCar.Bottom <= car.getTop() + 20))
+                return false;
+            
+          
+            if ((mainCar.Top < car.getBottom() - 45)  && sameLane(car))
                 return true;
+               
             return false ;
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+      
+
+        private void newGame_Click(object sender, EventArgs e)
         {
-            
+            CityRush newForm = new CityRush();
+            newForm.Visible = true;
+            this.Dispose(false);
+            newForm.startGame();
+
         }
 
         private Boolean sameLane(CarDrawing car)
@@ -379,6 +410,25 @@ namespace CityRush2._0
                 return true;
             return false;
 
+        }
+
+        private void startGame()
+        {
+            gameStarted = true;
+            pnlMain.Visible = false;
+            pnlGame.Visible = true;
+            countdownTimer.Interval = 1000;
+            lblTimer.Visible = true;
+            lblLbl.Visible = true;
+            timer1.Enabled = true;
+            countdownTimer.Enabled = true;
+        }
+
+        private void crush()
+        {
+            System.IO.Stream str = Properties.Resources.hit;
+            System.Media.SoundPlayer player= new System.Media.SoundPlayer(str);
+            player.Play();
         }
     }
 }

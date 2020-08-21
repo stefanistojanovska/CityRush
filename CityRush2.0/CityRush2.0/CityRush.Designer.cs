@@ -39,7 +39,6 @@
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnExit = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -51,6 +50,7 @@
             this.lblTimer = new System.Windows.Forms.Label();
             this.lblLvl = new System.Windows.Forms.Label();
             this.countdownTimer = new System.Windows.Forms.Timer(this.components);
+            this.newGame = new System.Windows.Forms.Button();
             this.pnlGame.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.mainCar)).BeginInit();
@@ -76,6 +76,7 @@
             // pnlGame
             // 
             this.pnlGame.BackColor = System.Drawing.Color.Gray;
+            this.pnlGame.Controls.Add(this.newGame);
             this.pnlGame.Controls.Add(this.lblStatus);
             this.pnlGame.Controls.Add(this.pictureBox7);
             this.pnlGame.Controls.Add(this.mainCar);
@@ -83,14 +84,13 @@
             this.pnlGame.Controls.Add(this.pictureBox5);
             this.pnlGame.Controls.Add(this.pictureBox4);
             this.pnlGame.Controls.Add(this.pictureBox3);
-            this.pnlGame.Controls.Add(this.label4);
             this.pnlGame.Location = new System.Drawing.Point(11, 50);
             this.pnlGame.Name = "pnlGame";
             this.pnlGame.Size = new System.Drawing.Size(910, 580);
             this.pnlGame.TabIndex = 6;
             this.pnlGame.Visible = false;
             this.pnlGame.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlGame_Paint);
-            this.pnlGame.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlGame_MouseClick);
+           
             // 
             // lblStatus
             // 
@@ -98,7 +98,7 @@
             this.lblStatus.BackColor = System.Drawing.Color.Transparent;
             this.lblStatus.Font = new System.Drawing.Font("Ink Free", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.Red;
-            this.lblStatus.Location = new System.Drawing.Point(367, 202);
+            this.lblStatus.Location = new System.Drawing.Point(340, 202);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(0, 43);
             this.lblStatus.TabIndex = 14;
@@ -162,15 +162,6 @@
             this.pictureBox3.TabIndex = 3;
             this.pictureBox3.TabStop = false;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(372, 138);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 15);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "label4";
-            // 
             // timer1
             // 
             this.timer1.Interval = 10;
@@ -188,7 +179,6 @@
             this.btnExit.TabIndex = 1;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = false;
-            this.btnExit.UseWaitCursor = true;
             this.btnExit.Click += new System.EventHandler(this.button2_Click);
             // 
             // pictureBox1
@@ -206,6 +196,7 @@
             // btnStart
             // 
             this.btnStart.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.btnStart.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.btnStart.Font = new System.Drawing.Font("Impact", 15.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStart.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.btnStart.Location = new System.Drawing.Point(282, 193);
@@ -214,13 +205,12 @@
             this.btnStart.TabIndex = 0;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = false;
-            this.btnStart.UseWaitCursor = true;
             this.btnStart.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Cursor = System.Windows.Forms.Cursors.WaitCursor;
+            this.label1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.label1.Font = new System.Drawing.Font("Gabriola", 72F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label1.Location = new System.Drawing.Point(211, 7);
@@ -228,7 +218,6 @@
             this.label1.Size = new System.Drawing.Size(476, 176);
             this.label1.TabIndex = 3;
             this.label1.Text = "City Rush 2.0";
-            this.label1.UseWaitCursor = true;
             // 
             // lblScore
             // 
@@ -290,6 +279,19 @@
             // 
             this.countdownTimer.Tick += new System.EventHandler(this.countdownTimer_Tick);
             // 
+            // newGame
+            // 
+            this.newGame.Font = new System.Drawing.Font("Impact", 15.75F, System.Drawing.FontStyle.Italic);
+            this.newGame.ForeColor = System.Drawing.Color.Red;
+            this.newGame.Location = new System.Drawing.Point(375, 248);
+            this.newGame.Name = "newGame";
+            this.newGame.Size = new System.Drawing.Size(149, 56);
+            this.newGame.TabIndex = 15;
+            this.newGame.Text = "New Game";
+            this.newGame.UseVisualStyleBackColor = true;
+            this.newGame.Visible = false;
+            this.newGame.Click += new System.EventHandler(this.newGame_Click);
+            // 
             // CityRush
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -328,7 +330,6 @@
         #endregion
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel pnlGame;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
@@ -347,6 +348,7 @@
         private System.Windows.Forms.Timer countdownTimer;
         private System.Windows.Forms.Label lblStatus;
         private System.Windows.Forms.Label lblLbl;
+        private System.Windows.Forms.Button newGame;
     }
 }
 
