@@ -320,6 +320,8 @@ namespace CityRush2._0
                     else
                     {
                         CityRush newForm = new CityRush();
+                        newForm.StartPosition = FormStartPosition.Manual;
+                        newForm.Location = this.Location;
                         newForm.Visible = true;
                         this.Dispose(false);
                     }
@@ -396,6 +398,8 @@ namespace CityRush2._0
         private void newGame_Click(object sender, EventArgs e)
         {
             CityRush newForm = new CityRush();
+            newForm.StartPosition = FormStartPosition.Manual;
+            newForm.Location = this.Location;
             newForm.Visible = true;
             this.Dispose(false);
             newForm.startGame();
@@ -430,5 +434,6 @@ namespace CityRush2._0
             System.Media.SoundPlayer player= new System.Media.SoundPlayer(str);
             player.Play();
         }
+     
     }
 }
